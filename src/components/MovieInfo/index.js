@@ -6,6 +6,8 @@ import Thumb from "../Thumb";
 // Config 
 import { IMAGE_BASE_URL, POSTER_SIZE  } from "../../config";
 
+import PropTypes from "prop-types";
+
 // Image
 import NoImage from '../../images/no_image.jpg'
 
@@ -54,5 +56,9 @@ const MovieInfo = ({movie}) => (
     </Wrapper>
 
 );
+
+MovieInfo.propTypes = {
+    movie : PropTypes.object
+}
 
 export default MovieInfo;

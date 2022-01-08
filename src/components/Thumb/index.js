@@ -1,6 +1,9 @@
 import { click } from "@testing-library/user-event/dist/click";
 import React from "react";
 
+import PropTypes from "prop-types";
+
+
 import { Link } from "react-router-dom";
 
 // Styles 
@@ -25,5 +28,11 @@ const Thumb = ({image, movieId, clickable}) => (
         
     </div>
 );
+
+Thumb.propTypes = {
+    image : PropTypes.string,
+    movieId : PropTypes.number,
+    clickable : PropTypes.bool
+}
 
 export default Thumb;
