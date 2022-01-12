@@ -4,6 +4,10 @@ import { useState, useEffect, useRef } from "react";
 
 import API from '../API';
 
+// Helpers 
+
+import { isPersistedState } from "../helpers";
+
 const initialState = {
 
     page: 0,
@@ -53,6 +57,17 @@ export const useHomeFetch = () => {
 
     useEffect(() => {
 
+        if(!searchTerm){
+            console.log("Grabbing form session storage");
+            const sessionState = isPersistedState('homeState');
+
+            if(sessionState){
+                setState(sessionState);
+                return;
+            }
+        }
+
+        console.log("Grabbing form API");
         setState(initialState);
         fetchMovies(1,searchTerm);
 
@@ -68,6 +83,15 @@ export const useHomeFetch = () => {
         setIsLoadingMore(false);
 
     },[isLoadingMore,searchTerm,state.page])
+
+    // Writing the session storage 
+
+    useEffect(() => {
+        if(!searchTerm){
+            // Only strings can be written into the session storage
+            sessionStorage.setItem('homeState',JSON.stringify(state));
+        }
+    },[searchTerm,state]);
 
     return {state,loading,error,searchTerm,setSearchTerm, setIsLoadingMore};
     
